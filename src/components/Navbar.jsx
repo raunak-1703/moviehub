@@ -13,6 +13,7 @@ const Navbar = () => {
   const [showDropdown, setShowDropdown] = useState(false);
 
   useEffect(() => {
+    if (!navRef.current) return;
     window.addEventListener('scroll', () => {
       if (window.scrollY >= 80) {
         navRef.current.classList.add('bg-[#141414]');

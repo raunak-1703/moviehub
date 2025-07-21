@@ -9,6 +9,7 @@ import { auth } from "../Authentication/firebase";
  const ContextProvider = ({children}) => {
     const [user,Setuser] = useState(null);
     const [loading,setLoadng] = useState(true);
+    const [loading2,setLoading2] =useState(false)
     useEffect(()=>{
         const unsubscribe = onAuthStateChanged(auth,(currentUser)=>{
         Setuser(currentUser);
@@ -18,7 +19,7 @@ import { auth } from "../Authentication/firebase";
     },[])
     
    return (
-     <Context.Provider value={{user,loading}}>
+     <Context.Provider value={{user,loading,loading2,setLoading2}}>
         {children}
      </Context.Provider>
    )

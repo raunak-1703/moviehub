@@ -11,12 +11,13 @@ import NotFoundPage from './pages/NotFoundPage'
 
 
 const App = () => {
-  const {user,loading} = useContext(Context)
+  const {user,loading,loading2} = useContext(Context)
   if(loading){
     return(<div className="w-screen h-screen flex items-center justify-center">
           <img src={loader} alt="loading" className="w-15"/>
         </div>)
   }
+  
   return (
     <>
     <Routes>

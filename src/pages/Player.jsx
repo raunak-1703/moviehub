@@ -1,7 +1,16 @@
 import React from 'react'
 import back_arrow_icon from '../assets/back_arrow_icon.png'
 import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom'
+import { useContext, useEffect } from 'react';
+import { Context } from '../Context/AppContext';
+
 const Player = () => {
+  const { setLoading2 } = useContext(Context);
+
+   useEffect(() => {
+        setLoading2(false); 
+    }, []);
+
   const navigate = useNavigate();
   const {id} = useParams()
   const location = useLocation();

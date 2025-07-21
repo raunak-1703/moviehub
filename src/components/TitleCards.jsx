@@ -1,7 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useContext, useEffect, useRef, useState } from "react";
 import card_data from "../assets/cards/Cards_data.js";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { Context } from "../Context/AppContext.jsx";
 const TitleCards = ({ title, category,className }) => {
+  const {setLoading2} = useContext(Context)
     const navigate = useNavigate()
   const cardsRef = useRef();
   const [apidata, setApiData] = useState([]);
@@ -24,7 +27,7 @@ const TitleCards = ({ title, category,className }) => {
     )
       .then((res) => res.json())
       .then((res) => setApiData(res.results))
-      .catch((err) => console.error(err));
+      .catch((err) => toast.error(err.message));
       const refs = cardsRef.current
       if(!refs) return 
 
@@ -34,6 +37,7 @@ const TitleCards = ({ title, category,className }) => {
   }, []);
 
     const openTrailer = async (card) => {
+      setLoading2(true) 
   try {
    
     const response = await  fetch(`https://api.themoviedb.org/3/movie/${card.id}/videos?language=en-US`, options)
@@ -49,14 +53,16 @@ const TitleCards = ({ title, category,className }) => {
         }
         });
     }
+    
     else{
-        alert('Error fetching the movie')
+        toast.error('Error fetching the movie')
+         setLoading2(false);
     }
   } catch (error) {
-    console.error("Error fetching trailer:", error);
-    alert('Error fetching the movie')
+       toast.error('Error fetching the movie');
+        setLoading2(false);
   }
-
+ 
 
   }
   return (
